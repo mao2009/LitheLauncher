@@ -1,0 +1,74 @@
+# Implementation Plan
+
+- [ ] 1. Set up the foundational UI components for game card display
+  - \[x] 1.1 Create the custom FlowLayout for responsive card arrangement
+    - Implement `FlowLayout` class inheriting from `QLayout` in `src/flow_layout.py`.
+    - Override `addItem()`, `count()`, `itemAt()`, `takeAt()` for layout item management.
+    - Implement `setGeometry()` to arrange widgets horizontally and wrap to the next line when space is exhausted.
+    - Implement `sizeHint()` and `minimumSize()` to provide correct layout sizing.
+    - _Requirements: Requirement 2, Requirement 4_
+  - \[x] 1.2 Create the GameCardWidget for individual game representation
+    - Implement `GameCardWidget` class inheriting from `QWidget` in `src/game_card_widget.py`.
+    - Design UI elements within the widget: `QVBoxLayout`, `QLabel` for cover art, `QLabel` for title.
+    - Implement loading and scaling of cover art (600 x 900 pixels) into the `QLabel`.
+    - Store `game_id` as an instance variable.
+    - _Requirements: Requirement 1, Requirement 4_
+
+- [ ] 2. Integrate game card components into the Main Window
+  - \[x] 2.1 Modify MainWindow's UI structure to use FlowLayout
+    - In `src/main_window.py`, replace the existing `QVBoxLayout` for game cards with a `QScrollArea` containing a `QWidget` that uses the `FlowLayout`.
+    - Import `FlowLayout` and `GameCardWidget` into `src/main_window.py`.
+    - _Requirements: Requirement 2, Requirement 4_
+  - \[x] 2.2 Populate the FlowLayout with GameCardWidgets
+    - Modify `_load_games()` in `src/main_window.py` to create `GameCardWidget` instances from `game_service.get_game_list()` data.
+    - Add each `GameCardWidget` to the `FlowLayout`.
+    - Implement logic to clear existing cards from the `FlowLayout` before loading new ones.
+    - _Requirements: Requirement 1, Requirement 4_
+  - \[x] 2.3 Remove obsolete game card addition method
+    - Remove the `_add_game_card()` method from `src/main_window.py`.
+    - _Requirements: Requirement 3, Requirement 4_
+
+- [ ] 3. Implement user interaction for game cards
+  - \[x] 3.1 Implement double-click to launch game
+    - Override `mouseDoubleClickEvent()` in `GameCardWidget` to emit a `launched` signal with `game_id`.
+    - Connect the `launched` signal to a new slot `_launch_game_action(game_id)` in `MainWindow`.
+    - Implement `_launch_game_action` to call `launcher_service.launch_game(game_id)`.
+    - _Requirements: Requirement 3_
+  - \[x] 3.2 Implement right-click context menu for actions
+    - Override `contextMenuEvent()` in `GameCardWidget` to create and display a `QMenu`.
+    - Add "Launch Game" and "Edit Game Details" actions to the context menu.
+    - Connect menu actions to internal slots in `GameCardWidget` that emit `edited` and `deleted` signals with `game_id`.
+    - Connect `edited` and `deleted` signals to new slots in `MainWindow` (e.g., `_open_edit_game_dialog` and `_delete_game`).
+    - Implement `_open_edit_game_dialog` to open `game_detail_dialog` with game data.
+    - Implement `_delete_game` to call `game_service.delete_game(game_id)` and refresh the UI.
+    - _Requirements: Requirement 3_
+  - \[x] 3.3 Remove direct action buttons on game cards
+    - Ensure any existing "Launch" and "Edit" buttons on game cards (if they were part of the initial `_add_game_card` implementation) are removed.
+    - _Requirements: Requirement 3_
+
+- [ ] 4. Apply visual styling using QSS
+  - \[x] 4.1 Create QSS stylesheet for game card appearance
+    - Create a new directory `res/` if it doesn't exist.
+    - Create `res/style.qss` to define styles for `GameCardWidget`, its internal labels, and hover effects.
+    - _Requirements: Requirement 5_
+  - \[x] 4.2 Load QSS stylesheet at application startup
+    - Modify `main.py` to read `res/style.qss` and apply it using `app.setStyleSheet()`.
+    - Include error handling for `FileNotFoundError`.
+    - _Requirements: Requirement 5_
+
+- [ ] 5. Implement comprehensive unit and integration tests
+  - \[x] 5.1 Develop unit tests for FlowLayout
+    - Test `addItem()`, `count()`, `itemAt()`, `takeAt()`.
+    - Test `setGeometry()` for correct widget positioning and wrapping.
+    - Test `sizeHint()` and `minimumSize()`.
+    - _Requirements: Requirement 4_
+  - \[x] 5.2 Develop unit tests for GameCardWidget
+    - Test UI elements display (title, cover art).
+    - Test double-click signal emission (`launched`).
+    - Test context menu creation and signal emissions (`edited`, `deleted`).
+    - _Requirements: Requirement 4_
+  - \[x] 5.3 Develop integration tests for MainWindow and card display
+    - Test integration of `FlowLayout` and `GameCardWidget` in `MainWindow`.
+    - Test responsive behavior of cards on window resize.
+    - Test end-to-end game launch and edit/delete actions via card interactions.
+    - _Requirements: Requirement 2, Requirement 3, Requirement 4_

@@ -1,0 +1,52 @@
+# Implementation Plan
+
+- [x] 1. 髢狗匱迺ｰ蠅・・繧ｻ繝・ヨ繧｢繝・・縺ｨ萓晏ｭ倬未菫ゅ・霑ｽ蜉
+  - [x] 1.1 Pillow繝ｩ繧､繝悶Λ繝ｪ縺ｮ繧､繝ｳ繧ｹ繝医・繝ｫ
+    - `requirements.txt` 縺ｫ Pillow 繧定ｿｽ蜉縺励√う繝ｳ繧ｹ繝医・繝ｫ繧ｹ繧ｯ繝ｪ繝励ヨ繧貞ｮ溯｡後・    - _Requirements: None_
+- [x] 2. 繝・・繧ｿ繝｢繝・Ν縺ｨ繝・・繧ｿ繝吶・繧ｹ繧ｹ繧ｭ繝ｼ繝槭・譖ｴ譁ｰ
+  - [x] 2.1 Game繧ｨ繝ｳ繝・ぅ繝・ぅ縺ｫ逕ｻ蜒上ヱ繧ｹ繝輔ぅ繝ｼ繝ｫ繝峨ｒ霑ｽ蜉
+    - `src/game_repository.py` 縺ｮ `Game` 繧ｯ繝ｩ繧ｹ縺ｫ `image_path: Optional[Path]` 繝輔ぅ繝ｼ繝ｫ繝峨ｒ霑ｽ蜉縲・    - _Requirements: 2.2, 3.1, 4.1_
+  - [x] 2.2 繝・・繧ｿ繝吶・繧ｹ繧ｹ繧ｭ繝ｼ繝槭↓逕ｻ蜒上ヱ繧ｹ繧ｫ繝ｩ繝繧定ｿｽ蜉
+    - `src/database.py` 縺ｧ `Game` 繝・・繝悶Ν縺ｫ `image_path` 繧ｫ繝ｩ繝 (TEXT蝙・ 繧定ｿｽ蜉縺吶ｋ縺溘ａ縺ｮ繝槭う繧ｰ繝ｬ繝ｼ繧ｷ繝ｧ繝ｳ繝ｭ繧ｸ繝・け繧貞ｮ溯｣・・    - _Requirements: 2.2_
+- [x] 3. ImageManager繧ｳ繝ｳ繝昴・繝阪Φ繝医・螳溯｣・(P)
+  - [x] 3.1 `src/image_manager.py` 繝輔ぃ繧､繝ｫ縺ｮ菴懈・
+    - `ImageManager` 繧ｯ繝ｩ繧ｹ繧貞ｮ夂ｾｩ縺励～copy_image_to_appdata`, `get_appdata_image_path`, `delete_game_image` 繝｡繧ｽ繝・ラ縺ｮ繧ｹ繧ｱ繝ｫ繝医Φ繧剃ｽ懈・縲・    - _Requirements: 2.1_
+  - [x] 3.2 `copy_image_to_appdata` 繝｡繧ｽ繝・ラ縺ｮ螳溯｣・    - 謖・ｮ壹＆繧後◆逕ｻ蜒上ｒ `data/{game_id}/images/` 縺ｫ繧ｳ繝斐・縺吶ｋ繝ｭ繧ｸ繝・け繧・`shutil.copy2` 縺ｨ `pathlib` 繧剃ｽｿ逕ｨ縺励※螳溯｣・・    - 繝・ぅ繝ｬ繧ｯ繝医Μ縺悟ｭ伜惠縺励↑縺・ｴ蜷医・菴懈・縲・    - _Requirements: 2.1_
+  - [x] 3.3 繝輔ぃ繧､繝ｫ謫堺ｽ懊お繝ｩ繝ｼ繝上Φ繝峨Μ繝ｳ繧ｰ縺ｮ螳溯｣・    - `copy_image_to_appdata` 繝｡繧ｽ繝・ラ蜀・〒 `FileNotFoundError`, `PermissionError`, `IOError` 縺ｪ縺ｩ繧呈黒謐峨＠縲・←蛻・↑萓句､悶ｒ逋ｺ逕溘＆縺帙ｋ縲・    - _Requirements: 2.3_
+- [x] 4. ImageLoader繧ｳ繝ｳ繝昴・繝阪Φ繝医・螳溯｣・(P)
+  - [x] 4.1 `src/image_loader.py` 繝輔ぃ繧､繝ｫ縺ｮ菴懈・
+    - `ImageLoader` 繧ｯ繝ｩ繧ｹ繧・`QRunnable` 繧堤ｶ呎価縺励※螳夂ｾｩ縲・    - 繧ｷ繧ｰ繝翫Ν繧貞ｮ夂ｾｩ縺吶ｋ縺溘ａ縺ｮ `ImageLoaderSignals` 繧ｯ繝ｩ繧ｹ (QObject邯呎価) 繧貞・驛ｨ繧ｯ繝ｩ繧ｹ縺ｨ縺励※菴懈・縲・    - `run` 繝｡繧ｽ繝・ラ縺ｮ繧ｹ繧ｱ繝ｫ繝医Φ縺ｨ繧ｷ繧ｰ繝翫Ν繧ｪ繝悶ず繧ｧ繧ｯ繝医ｒ蛻晄悄蛹悶・    - _Requirements: 4.1, 4.2, 4.3_
+  - [x] 4.2 `run` 繝｡繧ｽ繝・ラ縺ｧ逕ｻ蜒上Ο繝ｼ繝峨Ο繧ｸ繝・け繧貞ｮ溯｣・    - 繝舌ャ繧ｯ繧ｰ繝ｩ繧ｦ繝ｳ繝峨せ繝ｬ繝・ラ縺ｧPillow繧剃ｽｿ逕ｨ縺励※逕ｻ蜒上ｒ繝ｭ繝ｼ繝峨＠縲～QPixmap` 縺ｫ螟画鋤縲・    - 繝ｭ繝ｼ繝画・蜉滓凾縺ｫ `image_loaded(QPixmap)` 繧ｷ繧ｰ繝翫Ν繧堤匱陦後・    - _Requirements: 4.1, 4.3_
+  - [x] 4.3 逕ｻ蜒上Ο繝ｼ繝峨お繝ｩ繝ｼ繝上Φ繝峨Μ繝ｳ繧ｰ縺ｮ螳溯｣・    - 繝ｭ繝ｼ繝牙､ｱ謨玲凾縺ｫ `image_load_failed()` 繧ｷ繧ｰ繝翫Ν繧堤匱陦後・    - _Requirements: 4.1_
+- [x] 5. GameService縺ｮ讖溯・諡｡蠑ｵ
+  - [x] 5.1 `save_game_image` 繝｡繧ｽ繝・ラ縺ｮ霑ｽ蜉
+    - `GameService` 縺ｫ `save_game_image(game_id: str, source_image_path: Path) -> Path` 繝｡繧ｽ繝・ラ繧定ｿｽ蜉縲・    - `ImageManager` 繧貞茜逕ｨ縺励※逕ｻ蜒上ｒ繧ｳ繝斐・縺励～GameRepository` 繧貞茜逕ｨ縺励※繧ｲ繝ｼ繝縺ｮ逕ｻ蜒上ヱ繧ｹ繧呈峩譁ｰ縲・    - _Requirements: 2.1, 2.2_
+  - [x] 5.2 `get_game_image_path` 繝｡繧ｽ繝・ラ縺ｮ霑ｽ蜉
+    - `GameService` 縺ｫ `get_game_image_path(game_id: str) -> Optional[Path]` 繝｡繧ｽ繝・ラ繧定ｿｽ蜉縲・    - `GameRepository` 縺九ｉ逕ｻ蜒上ヱ繧ｹ繧貞叙蠕励・    - _Requirements: 3.1, 4.1_
+- [x] 6. 繧ｲ繝ｼ繝隧ｳ邏ｰ繝繧､繧｢繝ｭ繧ｰ (GameDetailDialog) 縺ｮUI譖ｴ譁ｰ
+  - [x] 6.1 "Browse"繝懊ち繝ｳ縺ｮ霑ｽ蜉
+    - `src/game_detail_dialog.py` 縺ｫ逕ｻ蜒城∈謚樒畑縺ｮ"Browse"繝懊ち繝ｳ繧定ｿｽ蜉縲・    - _Requirements: 1.1_
+  - [x] 6.2 逕ｻ蜒剰｡ｨ遉ｺ繧ｦ繧｣繧ｸ繧ｧ繝・ヨ縺ｮ霑ｽ蜉
+    - 驕ｸ謚槭＆繧後◆逕ｻ蜒上ｒ陦ｨ遉ｺ縺吶ｋ縺溘ａ縺ｮ `QLabel` 縺ｪ縺ｩ縺ｮ繧ｦ繧｣繧ｸ繧ｧ繝・ヨ繧定ｿｽ蜉縲・    - _Requirements: 3.1_
+  - [x] 6.3 "Browse"繝懊ち繝ｳ縺ｮ繧ｯ繝ｪ繝・け繧､繝吶Φ繝医ワ繝ｳ繝峨Λ縺ｮ螳溯｣・    - `QFileDialog` 繧剃ｽｿ逕ｨ縺励※繝輔ぃ繧､繝ｫ驕ｸ謚槭ム繧､繧｢繝ｭ繧ｰ繧帝幕縺阪￣NG, JPG, WEBP, GIF 縺ｮ繝輔ぅ繝ｫ繧ｿ繧定ｨｭ螳壹・    - _Requirements: 1.2, 1.3_
+  - [x] 6.4 驕ｸ謚槭＆繧後◆逕ｻ蜒上・菫晏ｭ倥→陦ｨ遉ｺ繝ｭ繧ｸ繝・け
+    - `GameService.save_game_image` 繧貞他縺ｳ蜃ｺ縺励∫ｵ先棡縺ｫ蝓ｺ縺･縺・※UI繧呈峩譁ｰ (逕ｻ蜒剰｡ｨ遉ｺ縲√お繝ｩ繝ｼ繝｡繝・そ繝ｼ繧ｸ陦ｨ遉ｺ)縲・    - _Requirements: 2.1, 2.2, 2.3, 3.2_
+  - [x] 6.5 譌｢蟄倥・繧ｲ繝ｼ繝縺ｮ逕ｻ蜒上ヱ繧ｹ繧偵Ο繝ｼ繝峨＠縺ｦ陦ｨ遉ｺ
+    - 繝繧､繧｢繝ｭ繧ｰ蛻晄悄陦ｨ遉ｺ譎ゅ↓ `GameService.get_game_image_path` 繧貞他縺ｳ蜃ｺ縺励∵里蟄倥・逕ｻ蜒上′縺ゅｌ縺ｰ陦ｨ遉ｺ縲・    - _Requirements: 3.1_
+- [x] 7. 繝｡繧､繝ｳ繧ｦ繧｣繝ｳ繝峨え (MainWindow) 縺ｨ繧ｲ繝ｼ繝繧ｫ繝ｼ繝峨え繧｣繧ｸ繧ｧ繝・ヨ (GameCardWidget) 縺ｮUI譖ｴ譁ｰ
+  - [x] 7.1 GameCardWidget縺ｸ縺ｮ逕ｻ蜒上ヱ繧ｹ縺ｮ蜿励￠貂｡縺・    - `src/main_window.py` 縺ｧ `GameCardWidget` 繧堤函謌舌☆繧矩圀縺ｫ逕ｻ蜒上ヱ繧ｹ繧呈ｸ｡縺吶ｈ縺・↓菫ｮ豁｣縲・    - _Requirements: 4.1_
+  - [x] 7.2 GameCardWidget縺ｫ逕ｻ蜒剰｡ｨ遉ｺ鬆伜沺縺ｨ繝励Ξ繝ｼ繧ｹ繝帙Ν繝繝ｼ繧定ｨｭ螳・    - `src/game_card_widget.py` 縺ｫ逕ｻ蜒上ｒ髱槫酔譛溘〒陦ｨ遉ｺ縺吶ｋ縺溘ａ縺ｮ `QLabel` 縺ｪ縺ｩ縺ｨ繝励Ξ繝ｼ繧ｹ繝帙Ν繝繝ｼ逕ｻ蜒上ｒ驟咲ｽｮ縲・    - _Requirements: 4.1, 4.2_
+  - [x] 7.3 GameCardWidget縺九ｉImageLoader繧貞他縺ｳ蜃ｺ縺励√す繧ｰ繝翫Ν繧呈磁邯・    - `ImageLoader` 縺ｮ繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繧堤函謌舌＠縲～load_image_async` 繧貞他縺ｳ蜃ｺ縺吶・    - `image_loaded` 繧ｷ繧ｰ繝翫Ν縺ｨ `image_load_failed` 繧ｷ繧ｰ繝翫Ν繧定・霄ｫ縺ｮ繧ｹ繝ｭ繝・ヨ縺ｫ謗･邯壹☆繧九・    - _Requirements: 4.1, 4.3_
+  - [x] 7.4 ImageLoader縺九ｉ縺ｮ邨先棡縺ｫ蝓ｺ縺･縺・※UI繧呈峩譁ｰ
+    - `image_loaded` 繧ｷ繧ｰ繝翫Ν蜿嶺ｿ｡譎ゅ↓繝励Ξ繝ｼ繧ｹ繝帙Ν繝繝ｼ繧貞ｮ溽判蜒上↓鄂ｮ縺肴鋤縺医・    - `image_load_failed` 繧ｷ繧ｰ繝翫Ν蜿嶺ｿ｡譎ゅ↓繧ｨ繝ｩ繝ｼ逕ｻ蜒剰｡ｨ遉ｺ (繧ｪ繝励す繝ｧ繝ｳ)縲・    - _Requirements: 4.3_
+- [ ] 8. 繝・せ繝医・霑ｽ蜉
+  - [ ] 8.1 ImageManager縺ｮ蜊倅ｽ薙ユ繧ｹ繝医・菴懈・ (P)
+    - `test_image_manager.py` 繧剃ｽ懈・縺励～copy_image_to_appdata`, `get_appdata_image_path` 縺ｮ繝・せ繝医こ繝ｼ繧ｹ繧定ｿｽ蜉縲・    - 繝輔ぃ繧､繝ｫ謫堺ｽ懊・繧ｨ繝ｩ繝ｼ繧ｱ繝ｼ繧ｹ繧ゅユ繧ｹ繝医・    - _Requirements: 2.1, 2.3_
+  - [ ] 8.2 ImageLoader縺ｮ蜊倅ｽ薙ユ繧ｹ繝医・菴懈・ (P)
+    - `test_image_loader.py` 繧剃ｽ懈・縺励∫判蜒上Ο繝ｼ繝峨￣illow邨ｱ蜷医√す繧ｰ繝翫Ν逋ｺ陦後・繝・せ繝医こ繝ｼ繧ｹ繧定ｿｽ蜉縲・    - 髱槫酔譛溷・逅・・繝・せ繝医↓縺ｯ繝｢繝・け繧・ユ繧ｹ繝医ワ繝ｼ繝阪せ繧剃ｽｿ逕ｨ縲・    - _Requirements: 4.1, 4.3_
+  - [ ] 8.3 GameService縺ｮ蜊倅ｽ薙ユ繧ｹ繝医・諡｡蠑ｵ (P)
+    - 譌｢蟄倥・ `test_game_service.py` 繧呈僑蠑ｵ縺励～save_game_image`, `get_game_image_path` 繝｡繧ｽ繝・ラ縺ｮ繝・せ繝医ｒ霑ｽ蜉縲・    - `ImageManager` 縺ｨ `GameRepository` 繧偵Δ繝・け蛹悶・    - _Requirements: 2.1, 2.2, 3.1, 4.1_
+  - [ ] 8.4 GameDetailDialog縺ｮUI邨ｱ蜷医ユ繧ｹ繝医・菴懈・
+    - `test_game_detail_dialog.py` 繧呈僑蠑ｵ縺励・Browse"繝懊ち繝ｳ縺ｮ繧ｯ繝ｪ繝・け縲√ヵ繧｡繧､繝ｫ驕ｸ謚槭∫判蜒剰｡ｨ遉ｺ縺ｮ繝輔Ο繝ｼ繧偵ユ繧ｹ繝医・    - _Requirements: 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2_
+  - [ ] 8.5 GameCardWidget縺ｨImageLoader縺ｮUI邨ｱ蜷医ユ繧ｹ繝医・菴懈・
+    - `test_game_card_widget.py` 繧呈僑蠑ｵ縺励・撼蜷梧悄逕ｻ蜒上Ο繝ｼ繝峨√・繝ｬ繝ｼ繧ｹ繝帙Ν繝繝ｼ陦ｨ遉ｺ縲∝ｮ溽判蜒冗ｽｮ縺肴鋤縺医・繝輔Ο繝ｼ繧偵ユ繧ｹ繝医・    - _Requirements: 4.1, 4.2, 4.3_

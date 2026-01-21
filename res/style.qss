@@ -1,0 +1,60 @@
+/* res/style.qss */
+
+GameCardWidget {
+    background-color: #333333; /* Dark gray */
+    border: 1px solid #555555; /* Slightly lighter gray border */
+    border-radius: 5px; /* Rounded corners */
+    margin: 5px; /* Space around cards */
+}
+
+GameCardWidget:hover {
+    background-color: #444444; /* Lighter dark gray on hover */
+    border: 1px solid #777777; /* Lighter border on hover */
+}
+
+GameCardWidget QLabel#title_label {
+    font-weight: bold;
+    color: white; /* White text for title */
+    padding: 5px; /* Padding around title */
+}
+
+GameCardWidget QLabel#cover_art_label {
+    background-color: #222222; /* Even darker background for cover art area */
+    border-bottom: 1px solid #555555; /* Separator line */
+    color: #888888;
+    font-size: 10px;
+}
+
+GameCardWidget[image_loading="true"] QLabel#cover_art_label {
+    background-color: #2a2a2a;
+    color: #aaaaaa;
+}
+
+GameCardWidget[no_image="true"] QLabel#cover_art_label {
+    background-color: #1a1a1a;
+    color: #666666;
+}
+
+/* Invalid game card styling */
+GameCardWidget[objectName="GameCardWidget_invalid"] {
+    background-color: #4d2626; /* Dark red background for invalid games */
+    border: 2px solid #dc2626; /* Red border for invalid games */
+    border-radius: 5px;
+    margin: 5px;
+}
+
+GameCardWidget[objectName="GameCardWidget_invalid"]:hover {
+    background-color: #5b2c2c; /* Slightly lighter red on hover */
+    border: 2px solid #ef4444; /* Brighter red border on hover */
+}
+
+GameCardWidget[objectName="GameCardWidget_invalid"] QLabel#title_label {
+    font-weight: bold;
+    color: #fecaca; /* Light red text for invalid game titles */
+    padding: 5px;
+}
+
+GameCardWidget[objectName="GameCardWidget_invalid"] QLabel#cover_art_label {
+    background-color: #3f1f1f; /* Dark red background for cover art area */
+    border-bottom: 1px solid #dc2626; /* Red separator line */
+}

@@ -1,0 +1,78 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Distributions
+dist/
+build/
+*.egg
+*.whl
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+.Trashes
+Thumbs.db
+
+# Logs
+*.log
+game_launcher.log
+test_*.log
+other.log
+
+# Database
+*.db
+game_launcher.db
+test_*.db
+*.bak
+
+# Application Data
+data/
+remote/
+local/
+
+# Hypothesis testing framework
+.hypothesis/
+
+# Test artifacts
+test_logger_*.log
+
+# Temporary and output files
+error_message.txt
+output.md
+output_game_card_widget.txt
+*.txt
+
+# Kiro specific files (keep specs but ignore other temp files)
+# .kiro/ - commented out to keep specs in version control
+
+
+# Gemini specific files
+.gemini/
+.geminiignore
+
+
+# Pipenv / Poetry
+Pipfile.lock
+poetry.lock
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Temporary files with unusual names
+*񵞏*

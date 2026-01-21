@@ -1,0 +1,22 @@
+{
+  "feature_name": "list-virtualization-async-startup",
+  "created_at": "2026-01-13T10:53:00Z",
+  "updated_at": "2026-01-13T11:45:00Z",
+  "language": "ja",
+  "phase": "tasks-generated",
+  "approvals": {
+    "requirements": {
+      "generated": true,
+      "approved": true
+    },
+    "design": {
+      "generated": true,
+      "approved": true
+    },
+    "tasks": {
+      "generated": true,
+      "approved": true
+    }
+  },
+  "ready_for_implementation": false
+}
